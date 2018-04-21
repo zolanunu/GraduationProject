@@ -10,7 +10,7 @@ def pairrepeatenumber(seq):
         else:
             di_nucleotides[di_seq] += 1
     for item in di_nucleotides.keys():
-        di_nucleotides[item] /= float(len(sequence)-1)
+        di_nucleotides[item] /= float(len(seq)-1)
     print(len(di_nucleotides.keys()))
     return di_nucleotides
 
@@ -22,7 +22,6 @@ def entropy(seq):
     print(nucleotide_dict)
     for item in nucleotide_dict.keys():
         nucleotide_dict[item] /= float(len(seq))
-    #print(nucleotide_dict)
     return nucleotide_dict
 
 def mi(nucleotides, di_nucleotides):
