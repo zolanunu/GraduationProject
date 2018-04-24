@@ -1,43 +1,29 @@
-# -*- coding: utf-8 -*-
+# -*- coding:utf-8 -*-
+def entropy(seq):
+    AAList = ["A", "C", "G", "T"]
+    nucleotide_dict = {'A': 0, 'C': 0, 'G': 0, 'T': 0}
 
-import re
-import math
+    for i in range(len(seq)):
+        if seq[i] in AAList:
+            nucleotide_dict[seq[i]] += 1
+        else:
+            continue
+    #print(nucleotide_dict)
+    for item in nucleotide_dict.keys():
+        nucleotide_dict[item] /= float(len(seq))
+    #print(nucleotide_dict)
+    sum = 0.0
+    for item in nucleotide_dict.keys():
+        sum += nucleotide_dict[item]
+    #print(sum)
+    #print(nucleotide_dict)
 
-
-def gtec(w, k=3):
-    """
-
-    :param w:
-    :param k:
-    :return:
-    """
-
-    w = w.strip(' ')
-    w_len = len(w)
-    nw = 0
-    nw = int(math.floor(math.log(w_len, 4)))
-    print(nw)
-    sub_w = w[0:(4 ** nw) + nw]
-    sub_w_len = len(sub_w)
-    if ((k < 0 or k > nw)):
-        return [1.0]
-    # print(sub_w_len)
-    ssum = 0.0000001
-    for i in range(nw - k + 1, nw + 1):
-        subset = set()
-        pwi = 0
-        ai = 0.0
-        for j in range(0, sub_w_len - i + 1):
-            subset.add(sub_w[j:j + i])
-        pwi = len(subset)
-        ai = ((math.log(pwi, 4)) / i)
-        ssum += ai
-    gtecvalue = ssum / k
-    gtecvalues = []
-    gtecvalues.append(gtecvalue)
-    return gtecvalues
-
+    result = []
+    for AA in AAList:
+        result.append(nucleotide_dict[AA])
+    return result, nucleotide_dict
 
 if __name__ == "__main__":
     sequence = "TACTTTTGTGAATTTCATCAACGATGTGGTTAACCATTATAAGTTCTCTATTCACTTTCTCGATTTTTTCGCAATGTTCTAACACTTCACAATAAGACACTTCTATCATCTCATTGTTCTTTTTACGACCTAAATGAGTTGTAACTAACGTTCGTTTTTTTCAAACAATAATTGTTGTCAAAATTTCTTTTTGTCTTAAATTGAAAACGACTCCTTAAATATTGATTGAAATTCACAACAGAACAATCACTACGTCCAATAGGATCAAATAGACTAGGACCATTACTTTACTAATTAACCTAGTATAGTTTTTTATTCCTCTATTCTTAGCTTCAATAATTACCAGGATCACGTAATTACACACCTAACTAGTGATCACCAAAATTTTGTTGTGGTGAAAACAAAAATCCAAAAAATTCAGTGTTTGTTTTAGTCGAGTTTTTAATAAATTCATGGATAGTTTTAGTCTTTTCGTGATAGCAAAAAAAACTTCGTCACGTATCCAATCTTTTATGAAATCTTTGACACTTTTTACAAAAATTTTTGTTACTGCAAAAATATCCTTCTCTTAATTGATTCAATGTACTTAGTGTAATAACTAAATTGTGGTCACTTTTGTGAAATGGACTGTAGTGAAATTTTCCTCTTAAACATTAACAATAACTATTAGTTTTATAATTAGTGGTTTGTAATAGAAGGTTAGTTATGAATCATATACTTTATTTCTTCAATTACCTATAACCACAATTCAATTTTCTACGTACGTTAATAAATCGATTTTTTTACGTAAATTTTAGTTCATACGAGATATGTGAAAAGGTACTTTCATAAATT"
-    print gtec(sequence, 5)
+    nus, entropyDict = entropy(sequence)
+    print(nus)
